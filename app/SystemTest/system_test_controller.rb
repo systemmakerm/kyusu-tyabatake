@@ -6,7 +6,7 @@ class SystemTestController < Rho::RhoController
   include BrowserHelper
   include ApplicationHelper
 
-  # GET /SystemTest
+  # System機能トップ
   def index
     render :back => '/app'
   end
@@ -14,6 +14,8 @@ class SystemTestController < Rho::RhoController
   # System.get_property('property')で取得できる値を一覧表示
   def properties
     @system = {}
+    # System::get_property(property_name)
+    # ==== property_name
     # * "platform"            :: プラットフォーム名
     # * "has_camera"          :: カメラの有無
     # * "screen_width"        :: 画面横幅(px)
@@ -85,14 +87,21 @@ class SystemTestController < Rho::RhoController
 
   # 端末をスリープさせる。
   def sleeping
+    # System::set_sleeping(flg)
+    # * flg             :: true or false
+    # * <tt>true</tt>   :: スリープを有効化
+    # * <tt>false</tt>  :: スリープを無効化
     $sleeping = !$sleeping
-    System.set_sleeping($sleeping)
+    puts $sleeping
+    System::set_sleeping($sleeping)
     render :action => :index
   end
 
   # URLからリンク先を開く
   def open_url
-    System.open_url("http://www.kouboum.co.jp")
+    # System::open_url(url)
+    # * url :: 開くURLを指定
+    System::open_url("http://www.kouboum.co.jp")
     render :action => :index
   end
 
@@ -105,7 +114,7 @@ class SystemTestController < Rho::RhoController
     when "android"
       System.run_app('market', "")
     when "apple"
-      System.run_app('store', "security_token=123")
+      System.run_app('skype://', "")
     end
     render :action => :index
   end
@@ -164,12 +173,6 @@ class SystemTestController < Rho::RhoController
       Alert.show_popup("ZIPファイルの解凍に成功しました。")
       File.unlink(model_path + "sample.txt")
     end
-    render :action => :index
-  end
-
-  # iOSのみ
-  def get_start_params
-    Alert.show_popup(System::get_start_params)
     render :action => :index
   end
 
