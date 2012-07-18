@@ -8,7 +8,9 @@
   </div>
 
   <div data-role="content">
-      <a href="<%= url_for :action => :choose, :query => {:flg => "1"} %>" data-role="button">時間を選択</a>
+      <a href="<%= url_for :action => :choose, :query => {:flg => "0"} %>" data-role="button">時間を選択</a>
+      <a href="<%= url_for :action => :choose, :query => {:flg => "1"} %>" data-role="button">時間を選択(日付のみ)</a>
+      <a href="<%= url_for :action => :choose, :query => {:flg => "2"} %>" data-role="button">時間を選択(時間のみ)</a>
   </div>
 
 </div>

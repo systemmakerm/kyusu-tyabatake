@@ -12,14 +12,20 @@ class TimePickerController < Rho::RhoController
 
   #タイムピッカー機能の呼び出し
   def choose
-    DateTimePicker.choose(url_for(:action => :choose_callback), '時間を選択して下さい', Time.new, @params['flg'].to_i,  Marshal.dump(@params['flg']))
+    DateTimePicker.choose(url_for(:action => :choose_callback),
+                          '時間を選択して下さい',
+                          Time.new,
+                          @params['flg'].to_i,
+                          Marshal.dump(@params['flg'])
+                         )
+
   end
 
   def choose_callback
     if @params['status'] == 'ok'
       Alert.show_popup(
         #表示するメッセージを指定
-        :message => "#{@params['result']}",
+        :message => "#{Time.at(@params['result'].to_i)}",
         #ポップアップのタイトルを指定
         :title => "お知らせ",
         :buttons => ["了解"]
