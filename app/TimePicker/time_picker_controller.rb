@@ -10,6 +10,7 @@ class TimePickerController < Rho::RhoController
     render :back => '/app'
   end
 
+  #タイムピッカー機能の呼び出し
   def choose
     DateTimePicker.choose(url_for(:action => :choose_callback), '時間を選択して下さい', Time.new, @params['flg'].to_i,  Marshal.dump(@params['flg']))
   end
