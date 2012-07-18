@@ -5,7 +5,7 @@ require 'time'
 class TimePickerController < Rho::RhoController
   include BrowserHelper
 
-  # GET /TimePicker
+  # タイムピッカートップページ
   def index
     render :back => '/app'
   end
