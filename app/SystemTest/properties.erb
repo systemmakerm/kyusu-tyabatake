@@ -1,0 +1,86 @@
+<div data-role="page">
+
+	<div data-role="header" data-position="inline">
+    <h1>プロパティ一覧</h1>
+    <a href="<%= url_for(:action => :index) %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      System機能へ
+    </a>
+	</div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <li>
+        <div class="itemLabel">プラットフォーム名</div>
+        <div class="itemValue"><%= @system["platform"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">カメラの有無</div>
+        <div class="itemValue"><%= @system["has_camera"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">画面横幅(px)</div>
+        <div class="itemValue"><%= @system["screen_width"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">画面縦幅(px)</div>
+        <div class="itemValue"><%= @system["screen_height"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">水平方向のPPI値</div>
+        <div class="itemValue"><%= @system["ppi_x"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">垂直方向のPPI値</div>
+        <div class="itemValue"><%= @system["ppi_y"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">ネットワークの有無</div>
+        <div class="itemValue"><%= @system["has_network"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">電話番号</div>
+        <div class="itemValue"><%= @system["phone_number"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">端末ID</div>
+        <div class="itemValue"><%= @system["device_id"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">ハードウェアID</div>
+        <div class="itemValue"><%= @system["phone_id"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">フルブラウザ</div>
+        <div class="itemValue"><%= @system["full_browser"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">デバイス名</div>
+        <div class="itemValue"><%= @system["device_name"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">OSのバージョン</div>
+        <div class="itemValue"><%= @system["os_version"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">設定されている言語</div>
+        <div class="itemValue"><%= @system["locale"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">国名</div>
+        <div class="itemValue"><%= @system["country"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">エミュレータ上であるか？</div>
+        <div class="itemValue"><%= @system["is_emulator"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">カレンダーの有無</div>
+        <div class="itemValue"><%= @system["has_calendar"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">Motorolaのデバイスか？</div>
+        <div class="itemValue"><%= @system["is_motorola_device"] %></div>
+      </li>
+    </ul>
+  </div>
+</div>

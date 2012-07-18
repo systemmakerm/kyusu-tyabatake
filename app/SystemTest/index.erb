@@ -1,0 +1,32 @@
+<div data-role="page" data-theme="b">
+
+	<div data-role="header" data-position="inline">
+    <h1>System機能</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      機能リストへ
+    </a>
+	</div>
+
+  <div data-role="content">
+    <a href="<%= url_for :action => :properties %>" data-role="button" >プロパティ一覧</a>
+    <a href="<%= url_for :action => :get_screen_rotation %>" data-role="button" >画面の回転を捕捉</a>
+    <a href="<%= url_for :action => :unset_screen_rotation %>" data-role="button" >画面の回転を捕捉を解除</a>
+    <a href="<%= url_for :action => :app_exit %>" data-role="button" >アプリを終了する</a>
+    <a href="<%= url_for :action => :sleeping %>" data-role="button" >スリープモードにする</a>
+    <a href="<%= url_for :action => :open_url %>" data-role="button" >URLを開く</a>
+    <a href="<%= url_for :action => :run_app %>" data-role="button" >他のアプリを起動する</a>
+    <% if platform == "android" %>
+      <a href="<%= url_for :action => :app_install %>" data-role="button" >アプリをインストールする</a>
+      <a href="<%= url_for :action => :app_uninstall %>" data-role="button" >アプリをアンインストールする</a>
+    <% end %>
+    <a href="<%= url_for :action => :app_installed %>" data-role="button" >アプリがインストール済みか判定する</a>
+    
+    <a href="<%= url_for :action => :unzip %>" data-role="button" >ZIPファイルを展開する</a>
+    <% if platform == "apple" %>
+      <a href="<%= url_for :action => :get_start_params %>" data-role="button" >get_start_params</a>
+      <a href="<%= url_for :action => :add_badge %>" data-role="button" >バッジの追加</a>
+      <a href="<%= url_for :action => :remove_badge %>" data-role="button" >バッジの削除</a>
+    <% end %>
+    
+  </div>
+</div>
