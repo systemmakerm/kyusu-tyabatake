@@ -8,7 +8,28 @@
   </div>
 
   <div data-role="content">
-      <a href="<%= url_for :action => :choose, :query => {:flg => "1"} %>" data-role="button">時間を選択</a>
+    <% if platform == 'apple' %>
+      <div data-role="fieldcontain">
+        <label for="time_field">Ajaxによる指定:</label>
+        <input type="text" name="time_field" id="time_field" readonly <%= placeholder("時間を選択して下さい") %> onClick="ChooseAjax();" />
+      </div>
+    <% end %>
+    <a href="<%= url_for :action => :choose, :query => {:flg => "0"} %>" data-role="button">時間を選択</a>
+    <a href="<%= url_for :action => :choose, :query => {:flg => "1"} %>" data-role="button">時間を選択(日付のみ)</a>
+    <a href="<%= url_for :action => :choose, :query => {:flg => "2"} %>" data-role="button">時間を選択(時間のみ)</a>
+    <a href="<%= url_for :action => :choose_range, :query => {:format => "0"} %>" data-role="button">時間を選択(１年後まで)</a>
   </div>
 
 </div>
+
+<script type="text/javascript">
+  function ChooseAjax(){
+    $.get('<%= url_for(:action => :choose_ajax) %>');
+    return false
+  }
+
+
+  function SetTime(time){
+    document.getElementById("time_field").value=time;
+  }
+</script>

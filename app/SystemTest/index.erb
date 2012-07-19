@@ -12,7 +12,7 @@
     <a href="<%= url_for :action => :get_screen_rotation %>" data-role="button" >画面の回転を捕捉</a>
     <a href="<%= url_for :action => :unset_screen_rotation %>" data-role="button" >画面の回転を捕捉を解除</a>
     <a href="<%= url_for :action => :app_exit %>" data-role="button" >アプリを終了する</a>
-    <a href="<%= url_for :action => :sleeping %>" data-role="button" >スリープモードにする</a>
+    <a href="<%= url_for :action => :sleeping %>" data-role="button" >スリープの有効化/無効化</a>
     <a href="<%= url_for :action => :open_url %>" data-role="button" >URLを開く</a>
     <a href="<%= url_for :action => :run_app %>" data-role="button" >他のアプリを起動する</a>
     <% if platform == "android" %>
@@ -23,7 +23,6 @@
     
     <a href="<%= url_for :action => :unzip %>" data-role="button" >ZIPファイルを展開する</a>
     <% if platform == "apple" %>
-      <a href="<%= url_for :action => :get_start_params %>" data-role="button" >get_start_params</a>
       <a href="<%= url_for :action => :add_badge %>" data-role="button" >バッジの追加</a>
       <a href="<%= url_for :action => :remove_badge %>" data-role="button" >バッジの削除</a>
     <% end %>
