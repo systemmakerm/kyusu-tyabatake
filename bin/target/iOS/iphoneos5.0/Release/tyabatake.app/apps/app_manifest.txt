@@ -1,7 +1,0 @@
-Event/event
-Image/image
-Navbar/navbar
-Nfc/nfc
-Tabbar/tabbar
-Toolbar/toolbar
-Webview/webview

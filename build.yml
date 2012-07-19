@@ -25,6 +25,7 @@ extensions:
 - json
 - barcode
 - another-extension
+- rhoxml
 capabilities:
 - gps
 - camera
