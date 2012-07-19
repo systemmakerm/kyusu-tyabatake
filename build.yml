@@ -8,9 +8,9 @@ applog: rholog.txt
 iphone:
   configuration: Release
   sdk: iphoneos5.0
-  provisionprofile: 
-  codesignidentity: 
-  entitlements: 
+  provisionprofile:
+  codesignidentity:
+  entitlements:
   BundleIdentifier: com.rhomobile.tyabatake
   BundleURLScheme: tyabatake
 wp:
