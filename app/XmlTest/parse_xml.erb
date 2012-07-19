@@ -1,0 +1,14 @@
+<div data-role="page">
+
+  <div data-role="header" data-position="inline">
+    <h1>XML解析表示</h1>
+    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
+      XML機能トップへ
+    </a>
+  </div>
+
+  <div data-role="content">
+    <%= @xml.elements["/projects/title"].get_text %>
+  </div>
+
+</div>

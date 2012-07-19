@@ -1,0 +1,15 @@
+<div data-role="page">
+
+	<div data-role="header" data-position="inline">
+    <h1>XML機能</h1>
+    <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      機能リストへ
+    </a>
+	</div>
+
+  <div data-role="content">
+    <a href="<%= url_for :action => :parse_xml %>" data-role="button" >XML解析</a>
+    <a href="<%= url_for :action => :show_rss %>" data-role="button" >RSS表示</a>
+  </div>
+
+</div>
