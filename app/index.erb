@@ -1,4 +1,4 @@
-<div data-role="page" data-url="<%= Rho::RhoConfig.start_path %>/" data-theme="b">
+<H能div data-role="page" data-url="<%= Rho::RhoConfig.start_path %>/" data-theme="b">
 
   <div data-role="header" data-position="inline">
     <h1>Rhodes機能一覧</h1>
@@ -31,6 +31,7 @@
       <% end %>
       <li><a href="<%= url_for :controller => :TimePicker, :action => :index %>">タイムピッカー機能</a></li>
       <li><a href="<%= url_for :controller => :SystemTest, :action => :index %>">System機能</a></li>
+      <li><a href="<%= url_for :controller => :HttpConnect, :action => :index %>">Http通信機能</a></li>
       <li><a href="<%= url_for :controller => :XmlTest, :action => :index %>">XML機能</a></li>
       <li><a href="<%= url_for :controller => :JsonTest, :action => :index %>">Json機能</a></li>
     </ul>
