@@ -14,9 +14,10 @@ class SystemTestController < Rho::RhoController
   # System::get_property('property')で取得できる値を一覧表示
   def properties
     @system = {}
-    # System::get_property(property_name)
+    #   System::get_property(property_name)
+    # 引数で指定したプロパティの値を取得する。
     # ==== args
-    # * property_name         :: 取得するプロパティ名
+    # * property_name                :: 取得するプロパティ名
     # * <tt>platform</tt>            :: プラットフォーム名
     # * <tt>has_camera</tt>          :: カメラの有無
     # * <tt>screen_width</tt>        :: 画面横幅(px)
@@ -44,7 +45,9 @@ class SystemTestController < Rho::RhoController
 
   # 画面の向きが変わったときを捕捉する
   def get_screen_rotation
-    # System::set_screen_rotation_notification(callback_url, params)
+    #   System::set_screen_rotation_notification(callback_url, params)
+    # 画面の向きが変わったことを捕捉する。
+    # callback_url, paramsに nil を指定すると、捕捉を解除することができる。
     # ==== args
     # * callback_url :: 画面が回転したときに、呼び出すコールバック先のURL
     # * params       :: コールバック先へ渡すパラメータを指定する。
@@ -60,7 +63,7 @@ class SystemTestController < Rho::RhoController
 
   # 画面の向きが変わったときに呼ばれるコールバック
   def get_screen_rotation_callback
-    Alert.show_popup("画面の向きがかわりました。")
+    Alert.show_popup("画面の向きが変わりました。")
   end
 
   # アプリケーションを終了させる前に
@@ -81,25 +84,30 @@ class SystemTestController < Rho::RhoController
     if @params["button_id"] == "cancel"
       WebView.navigate(url_for(:action => :index))
     else
-      # System::exit - アプリの終了処理
+      #   System::exit
+      # アプリの終了処理
       System::exit
     end
   end
 
-  # 端末をスリープさせる。
+  # 端末のスリープモードを有効化/無効化
   def sleeping
-    # System::set_sleeping(flg)
+    $sleeping = !$sleeping
+    #   System::set_sleeping(flg)
+    # 端末のスリープモードを有効化/無効化を行う。
+    # ==== args
     # * flg             :: true or false
     # * <tt>true</tt>   :: スリープを有効化
     # * <tt>false</tt>  :: スリープを無効化
-    $sleeping = !$sleeping
     System::set_sleeping($sleeping)
     render :action => :index
   end
 
   # URLからリンク先を開く
   def open_url
-    # System::open_url(url)
+    #   System::open_url(url)
+    # 引数で渡したURLを開く
+    # ==== args
     # * url :: 開くURLを指定
     System::open_url("http://www.kouboum.co.jp")
     render :action => :index
@@ -107,7 +115,9 @@ class SystemTestController < Rho::RhoController
 
   # 他のアプリケーションを起動する。
   def run_app
-    # System::run_app(appname, params)
+    #   System::run_app(appname, params)
+    # 引数で渡したアプリケーションを起動する。
+    # ==== args
     # * appname :: 起動したいアプリケーション名
     # * params  :: アプリケーションに渡すパラメータ
     case platform
@@ -121,7 +131,9 @@ class SystemTestController < Rho::RhoController
 
   # アプリケーションをインストールする。
   def app_install
-    # System::app_install(url)
+    #   System::app_install(url)
+    # 引数で指定したアプリケーションをインストールする。
+    # ==== args
     # * url :: インストールしたいアプリのURL
     url = 'https://rhohub-prod-ota.s3.amazonaws.com/129b1fd5930d4d40b906addd08d61058/simpleapp-rhodes_signed.apk'
     System::app_install(url)
@@ -130,7 +142,9 @@ class SystemTestController < Rho::RhoController
 
   # アプリケーションがインストールされているかを判定
   def app_installed
-    # System::app_installed?(appname)
+    #   System::app_installed?(appname)
+    # 引数で指定したアプリケーションがインストールされているかを判定して返す。
+    # ==== args
     # * appname :: インストールされているか判定するアプリ名
     case platform
     when "android"
@@ -154,7 +168,8 @@ class SystemTestController < Rho::RhoController
   # アプリケーションのアンインストール
   # Androidのみ正しい挙動をする。
   def app_uninstall
-    # System::app_uninstall(appname)
+    #   System::app_uninstall(appname)
+    # 引数で指定したアプリケーションをアンインストールする。
     # ==== args
     # * appname :: アプリケーション名
     System::app_uninstall("com.android.music")
@@ -165,7 +180,8 @@ class SystemTestController < Rho::RhoController
   def unzip
     model_path = Rho::RhoApplication.get_model_path("app", "SystemTest")
     url = model_path + "sample.zip"
-    # System::unzip_file(url)
+    #   System::unzip_file(url)
+    # 引数で指定したパスにあるZipファイルを解凍する。
     # ==== args
     # * url :: 解凍したいZIPファイルのパス
     System::unzip_file(url)
@@ -180,9 +196,11 @@ class SystemTestController < Rho::RhoController
   # 本アプリにbadgeを追加する。
   # iOSのみ
   def add_badge
-    # System::set_application_icon_badge(num)
+    #   System::set_application_icon_badge(num)
+    # 引数で渡した値のバッジをアプリケーションアイコンに設定できる。
+    # iOS系のみ使用することができる。
     # ==== args
-    # * num :: 設定するバッジの値
+    # * num :: 設定するバッジの値。0を渡すとバッジが消える。
     System::set_application_icon_badge(3)
     render :action => :index
   end

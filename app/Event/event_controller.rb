@@ -22,17 +22,19 @@ class EventController < Rho::RhoController
     start_date = blank?(@params["start_date"]) ? (Rho::RhoEvent::MIN_TIME + 1) : Time.parse(@params["start_date"])
     end_date = blank?(@params["end_date"]) ? (Rho::RhoEvent::MAX_TIME - 1) : Time.parse(@params["end_date"])
     include_repeating = !blank?(@params["repeating"])
-    # === options
-    # :all::                全件取得
-    # :start_date::         開始日
-    # :end_date::           終了日
-    # :find_type::          検索種類(方法)
-    # :include_repeating::  繰り返しのイベントを取得するか(true or false)
+    #   Rho::RhoEvent.find(options)
+    # 端末に保存されている、イベント情報を取得する。
+    # === args
+    # * :all                ::  全件取得
+    # * :start_date         ::  開始日
+    # * :end_date           ::  終了日
+    # * :find_type          ::  検索種類(方法)
+    # * :include_repeating  ::  繰り返しのイベントを取得するか(true or false)
     #
     # ==== :find_typeに指定できる値
-    # 'starting'::  :start_dateと:end_dateで指定した日付間に開始したイベントを取得します。
-    # 'ending'::    :start_dateと:end_dateで指定した日付間に終了したイベントを取得します。
-    # 'occurring':: :start_dateと:end_dateで指定した日付間に生じるのイベントを取得します。
+    # * 'starting'  :: :start_dateと:end_dateで指定した日付間に開始したイベントを取得します。
+    # * 'ending'    :: :start_dateと:end_dateで指定した日付間に終了したイベントを取得します。
+    # * 'occurring' :: :start_dateと:end_dateで指定した日付間に生じるのイベントを取得します。
     @events = Rho::RhoEvent.find(
       :all,
       :start_date => start_date,
@@ -91,7 +93,10 @@ class EventController < Rho::RhoController
 
   # イベント詳細表示
   def show
-    # @params['id']をもとに、スケジュールを取得する。
+    #   Rho::RhoEvent.find(id)
+    # 引数idで指定したイベント情報を取得する。
+    # ==== args
+    # id :: 取得したいイベント情報のid
     @event = Rho::RhoEvent.find(@params['id'])
     if @event
       render :action => :show, :back => url_for(:action => :index)
@@ -127,8 +132,25 @@ class EventController < Rho::RhoController
       # パラメータで送られた値から、繰り返し(recurrence)に関する値を削除する。
       attributes.delete(Rho::RhoEvent::RECURRENCE)
     end
-    # Rho::RhoEvent.create!メソッドで
-    # スケジュールを新規作成する。
+    #   Rho::RhoEvent.create!(attributes)
+    # 引数で渡した値をもとに、イベントを作成する。
+    # ==== args
+    # * attributes :: 作成するイベントの情報
+    # ===== attributes
+    # * "title"       :: イベントのタイトル
+    # * "place"       :: イベントの場所
+    # * "notes"       :: イベントのメモ
+    # * "start_date"  :: イベントの開始日
+    # * "end_date"    :: イベントの終了日
+    # * "recurrence"  :: イベントの繰り返し
+    # ====== recurrence
+    # * "frequency"   :: 繰り返し種類
+    # * <tt>"daily"</tt>    :: "毎日"
+    # * <tt>"weekly"</tt>   :: "毎週"
+    # * <tt>"monthly"</tt>  :: "毎月"
+    # * <tt>"yearly"</tt>   :: "毎年"
+    # * "interval"    :: 繰り返しの間隔
+    # * "end_date"    :: 繰り返しの終了日
     @event = Rho::RhoEvent.create!(attributes)
     Alert.show_popup("作成しました。")
     redirect :action => :index
@@ -143,8 +165,26 @@ class EventController < Rho::RhoController
       # パラメータで送られた値から、繰り返し(recurrence)に関する値を削除する。
       attributes.delete(Rho::RhoEvent::RECURRENCE)
     end
-    # Rho::RhoEvent.update_attributesメソッドで
-    # スケジュールを更新する。
+    #   Rho::RhoEvent.update_attributes(attributes)
+    # 引数で渡した値をもとに、イベントを更新する。
+    # ==== args
+    # * attributes :: 更新するイベントの情報
+    # ===== attributes
+    # * "id"          :: イベントのID
+    # * "title"       :: イベントのタイトル
+    # * "place"       :: イベントの場所
+    # * "notes"       :: イベントのメモ
+    # * "start_date"  :: イベントの開始日
+    # * "end_date"    :: イベントの終了日
+    # * "recurrence"  :: イベントの繰り返し
+    # ====== recurrence
+    # * "frequency"   :: 繰り返し種類
+    # * <tt>"daily"</tt>    :: "毎日"
+    # * <tt>"weekly"</tt>   :: "毎週"
+    # * <tt>"monthly"</tt>  :: "毎月"
+    # * <tt>"yearly"</tt>   :: "毎年"
+    # * "interval"    :: 繰り返しの間隔
+    # * "end_date"    :: 繰り返しの終了日
     @event = Rho::RhoEvent.update_attributes(attributes)
     Alert.show_popup("更新しました。")
     redirect :action => :show, :id => @params['event'][Rho::RhoEvent::ID]
@@ -152,8 +192,10 @@ class EventController < Rho::RhoController
 
   # イベント削除
   def delete
-    # Rho::RhoEvent.destroyメソッドで
-    # 指定したスケジュールを削除する。
+    #   Rho::RhoEvent.destroy(id)
+    # 引数idで指定したイベントを削除する。
+    # ==== args
+    # * id :: 削除したいイベントのID
     @event = Rho::RhoEvent.destroy(@params[Rho::RhoEvent::ID])
     Alert.show_popup("削除しました。")
     redirect :action => :index
@@ -161,8 +203,9 @@ class EventController < Rho::RhoController
 
   # DateTimePickerを起動する
   def choose_date
-    # DateTimePicker.choose(callback_url, title, initial_time, format, opaque)
-    # ==== Args
+    #   DateTimePicker.choose(callback_url, title, initial_time, format, opaque)
+    # 日付入力に使用するDateTimePickerを呼び出す。
+    # ==== args
     # * callback_url  :: DateTimePickerで日付を入力した後のコールバック先
     # * title         :: DateTimePickerのタイトル
     # * initial_time  :: 初期値（Timeオブジェクト)

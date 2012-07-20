@@ -15,7 +15,9 @@ class XmlTestController < Rho::RhoController
   def parse_xml
     file_name = File.join(Rho::RhoApplication::get_model_path('app','XmlTest'), 'sample.xml')
     file = File.new(file_name)
-    # REXML::Document.new(str)
+    #   REXML::Document.new(str)
+    # XML形式の文字列を解析する。
+    # ==== args
     # * str :: 解析したい文字列 
     @xml = REXML::Document.new(file)
     render :back => url_for(:action => :index)

@@ -16,7 +16,8 @@ class JsonTestController < Rho::RhoController
     json_path = File.join(Rho::RhoApplication.get_model_path("app", "JsonTest"), "sample.json")
     file = File.new(json_path)
     @json = file.read
-    # Rho::JSON.parse(str) :: 引数で渡した文字列をJSON解析する。
+    #   Rho::JSON.parse(str)
+    # 引数で渡した文字列をJSON解析する。
     # ==== args
     # * str :: JSON解析を行いたい文字列
     @parse_json = Rho::JSON.parse(@json)
@@ -54,7 +55,8 @@ class JsonTestController < Rho::RhoController
     value = {:project => {:title => "Ruby on SmartPhone with PaaS"}}
     
     File.open(json_path, "w") do |f|
-      # ::JSON.generate(value) # => String
+      #   ::JSON.generate(value)
+      # 引数で渡した値をJSON形式の文字列に変換する。
       # ==== args
       # * value :: JSON化したい値
       f.print ::JSON.generate(value)
