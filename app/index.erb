@@ -13,7 +13,6 @@
     <ul data-role="listview">
       <li><a href="<%= url_for :controller => :Image, :action => :index %>">カメラ撮影機能</a></li>
       <li><a href="<%= url_for :controller => :GeoLocation, :action => :index %>">GPS機能</a></li>
-      <li><a href="<%= url_for :controller => :Barcode, :action => :index %>">バーコードスキャン機能</a></li>
       <li><a href="<%= url_for :controller => :Alert, :action => :index %>">アラート機能</a></li>
       <li><a href="<%= url_for :controller => :Toolbar, :action => :index %>">ツールバー機能</a></li>
       <li><a href="<%= url_for :controller => :Tabbar, :action => :index %>">タブバー機能</a></li>
@@ -27,6 +26,7 @@
       <li><a href="<%= url_for :controller => :Event, :action => :index %>">イベント機能</a></li>
       <li><a href="<%= url_for :controller => :Signature, :action => :index %>">署名(サイン機能)</a></li>
       <% if System::get_property('platform') != 'APPLE' %>
+        <li><a href="<%= url_for :controller => :Barcode, :action => :index %>">バーコードスキャン機能</a></li>
         <li><a href="<%= url_for :controller => :Ringtones, :action => :index %>">着信音機能</a></li>
       <% end %>
       <li><a href="<%= url_for :controller => :TimePicker, :action => :index %>">タイムピッカー機能</a></li>
