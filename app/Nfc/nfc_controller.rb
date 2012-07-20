@@ -23,7 +23,7 @@ class NfcController < Rho::RhoController
     @status = Rho::NFCManager.is_enabled
     #Nfcを読み込んだ時のコールバックを設定(Nfcを読み込むと、指定したコールバックへ自動的に入る)
     Rho::NFCManager.set_nfc_tech_callback(url_for(:action => :nfc_tech_callback))
-    render :back => '/app'
+    render :back => url_for(:action => :index)
   end
 
   #nfcテクノロジーをキャッチしたら入る
@@ -128,13 +128,11 @@ class NfcController < Rho::RhoController
     WebView.execute_js("manufacturer('#{manufacturer_byte.inspect}');")
     WebView.execute_js("system('#{system_code.inspect}');")
   end
-  #リーダー機能終了-----------------------------------------------------------------------------------------
 
-  #ライター機能--------------------------------------------------------------------------------------------
   def write
     #一度Nfc機能をオフにする。(Nfc機能を使用した後に、オフにしなければバックグラウンドでコールバックが動き続けるため)
     Rho::NFCManager.disable
-    render :back => '/app/Nfc/index'
+    render :back => url_for(:action => :index)
   end
 
   #タグの書き込みを行うコールバックを設定
@@ -150,7 +148,7 @@ class NfcController < Rho::RhoController
                                                     }
                                                  )
                                           )
-    render :back => '/app/Nfc/write'
+    render :back => url_for(:action => :write)
   end
 
   #タグの書き込みをおこなう
@@ -205,12 +203,10 @@ class NfcController < Rho::RhoController
     #レコードからNdefMessageを作成し、コールバック(:nfc_write_callback)へ値を返す
     return Rho::NFCManager.make_NdefMessage_from_array_of_NdefRecord(records)
   end
-  #ライター機能終了------------------------------------------------------------------------------------------
 
-  #p2p機能------------------------------------------------------------------------------------------------
   #ピアツーピアトップページ
   def peer_to_peer
-    render :back => '/app/Nfc/index'
+    render :back => url_for(:action => :index)
   end
 
   #タグ情報を送信する
@@ -221,14 +217,14 @@ class NfcController < Rho::RhoController
     msg = msg_create(@params['string'], '84', 1)
     #P2Pでタグを送信する。(バックグラウンドで動き続ける)
     Rho::NFCManager.p2p_enable_foreground_nde_push(msg)
-    render :back => '/app/Nfc/stop_nfc'
+    render :back => url_for(:action => :index)
   end
 
   #P2Pの停止
   def stop_nfc
     #P2P通信を終了させる
     Rho::NFCManager.p2p_disable_foreground_nde_push
-    render :action => :peer_to_peer, :back => '/app/Nfc/index'
+    render :action => :peer_to_peer, :back => url_for(:action => :index)
   end
-  #p2p機能終了---------------------------------------------------------------------------------------------
+
 end
