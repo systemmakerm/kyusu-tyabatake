@@ -59,7 +59,7 @@ class HttpConnectController < Rho::RhoController
       :url      => @@server_uri + '/robots.txt',
       #ファイルのダウンロード先
       :filename => File.join(Rho::RhoApplication::get_base_app_path(),  'test.txt'),
-      :callback => (url_for :action => :http_callback),
+      :callback => (url_for :action => :http_callback)
     )
     render :string => "ダウンロード中"
   end
