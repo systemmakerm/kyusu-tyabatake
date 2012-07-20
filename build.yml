@@ -20,6 +20,7 @@ symbian:
 android:
   version: 2.3.3
   extensions:
+  - nfc
   - barcode
 extensions:
 - json
