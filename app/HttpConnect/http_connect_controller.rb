@@ -4,17 +4,19 @@ require 'helpers/browser_helper'
 class HttpConnectController < Rho::RhoController
   include BrowserHelper
 
+  @@server_uri = "http://192.168.1.209:3000"
+
   #HTTP通信機能TOPページ
   def index
     render :back => '/app'
   end
 
   #GETでアクセスする
-  def get_acces
+  def get_access
     #GETメソッドでHTTP通信をする
     Rho::AsyncHttp.get(
       #接続先URL
-      :url             => 'http://192.168.1.208:3000/asyncs.json',         #各メソッド共通項目
+      :url             =>  @@server_uri + '/asyncs.json',                  #各メソッド共通項目
       #通信のヘッダー情報
       :headers         =>  {"Cookie" => "cookieなどを送る時に使用する"},   #各メソッド共通項目
       #通信が終了したら入るコールバックを設定
@@ -39,7 +41,7 @@ class HttpConnectController < Rho::RhoController
   def post_access
     #POSTメソッドでHTTP通信をする
     Rho::AsyncHttp.post(
-      :url             => 'http://192.168.1.208:3000/asyncs.json',
+      :url             => @@server_uri + '/asyncs.json',
       #外部にPOSTするデータ
       :body            => "username=systemmakerm&password=systemmakerm",
       :callback        => (url_for(:action => :http_callback))
@@ -54,7 +56,7 @@ class HttpConnectController < Rho::RhoController
     #HTTP通信でファイルをダウンロードする
     Rho::AsyncHttp.download_file(
       #ダウンロードするファイルのURL
-      :url => 'http://192.168.1.208:3000/robots.txt',
+      :url      => @@server_uri + '/robots.txt',
       #ファイルのダウンロード先
       :filename => File.join(Rho::RhoApplication::get_base_app_path(),  'test.txt'),
       :callback => (url_for :action => :http_callback),
@@ -79,23 +81,23 @@ class HttpConnectController < Rho::RhoController
     #HTTP通信でファイルをアップロードする
     Rho::AsyncHttp.upload_file(
       #アップロード先URL
-      :url => 'http://192.168.1.208:3000/asyncs.json',
+      :url       => @@server_uri + '/asyncs.json',
       #複数のファイルを指定
       :multipart => [
         {
           #アップロードするファイルのパス
-          :filename => file_name,
+          :filename      => file_name,
           #filenameのベースディレクトリ
           :filename_base => 'file_upload',
           #アップロードするファイルのパラメータの名前
-          :name => 'image',
+          :name          => 'image',
           #アップロードするファイルの種類
-          :content_type => "application/octet-stream"
+          :content_type  => "application/octet-stream"
         },
         {
           #アップロードするデータ
-          :body => "この文字列がアップロードされます",
-          :name => 'text',
+          :body         => "この文字列がアップロードされます",
+          :name         => 'text',
           :content_type => "plain/text"
         }
       ],
