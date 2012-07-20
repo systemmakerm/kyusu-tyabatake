@@ -1,0 +1,19 @@
+<div data-role="page">
+
+  <div data-role="header" data-position="inline">
+    <h1>JSON解析表示</h1>
+    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
+      JSON機能トップへ
+    </a>
+  </div>
+
+  <div data-role="content">
+    <ul data-role="listview">
+      <li>
+        <div class="itemLabel">ファイル内容</div>
+        <div class="itemValue"><%= @json %></div>
+      </li>
+    </ul>
+  </div>
+
+</div>
