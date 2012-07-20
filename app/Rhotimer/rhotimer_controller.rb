@@ -12,7 +12,7 @@ class RhotimerController < Rho::RhoController
   #タイマーをスタートさせる
   def timer_start
     #タイマー機能スタート(時間(ミリ), コールバックURL, コールバックへ渡す値)
-    Rho::Timer.start(5000, (url_for(:action => :timer_callback)), 'test')
+    Rho::Timer.start(5000, url_for(:action => :timer_callback), 'test')
     render :action => :wait
   end
 
