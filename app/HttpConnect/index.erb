@@ -1,7 +1,7 @@
 <div data-role="page">
 
   <div data-role="header" data-position="inline">
-    <h1>HttpConnects</h1>
+    <h1>Http通信機能</h1>
     <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
      機能リストへ
     </a>
@@ -11,5 +11,6 @@
       <a href="<%= url_for(:action => :get_access) %>" data-role="button">GETでアクセスする</a>
       <a href="<%= url_for(:action => :post_access) %>" data-role="button">POSTでアクセスする</a>
       <a href="<%= url_for(:action => :download) %>" data-role="button">ダウンロード</a>
+      <a href="<%= url_for(:action => :upload) %>" data-role="button">アップロード</a>
   </div>
 </div>
