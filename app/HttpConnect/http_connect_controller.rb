@@ -44,7 +44,7 @@ class HttpConnectController < Rho::RhoController
       :url             => @@server_uri + '/asyncs.json',
       #外部にPOSTするデータ
       :body            => "username=systemmakerm&password=systemmakerm",
-      :callback        => (url_for(:action => :http_callback))
+      :callback        => url_for(:action => :http_callback)
       #違うメソッでのアクセスも出来る(例：PUT)
       #:http_command    => "put"
     )
@@ -58,8 +58,8 @@ class HttpConnectController < Rho::RhoController
       #ダウンロードするファイルのURL
       :url      => @@server_uri + '/robots.txt',
       #ファイルのダウンロード先
-      :filename => File.join(Rho::RhoApplication::get_base_app_path(),  'test.txt'),
-      :callback => (url_for :action => :http_callback)
+      :filename => File.join(Rho::RhoApplication::get_base_app_path(), 'test.txt'),
+      :callback => url_for(:action => :http_callback)
     )
     render :string => "ダウンロード中"
   end
