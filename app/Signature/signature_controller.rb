@@ -8,6 +8,8 @@ class SignatureController < Rho::RhoController
 
   #サイン機能トップページ
   def index
+    #サイン領域を見えなくする
+    Rho::SignatureCapture.visible(false, nil)
     @signatures = Signature.find(:all)
     render :back => '/app'
   end
@@ -58,9 +60,7 @@ class SignatureController < Rho::RhoController
       #DBに画像のuriを保存
       Signature.create({:signature_uri => @params['signature_uri']})
     end
-    #サイン領域を見えなくする
-    Rho::SignatureCapture.visible(false, nil)
-    WebView.navigate(url_for(:action => :index))
+   WebView.navigate(url_for(:action => :index))
   end
 
   #キャプチャ機能
