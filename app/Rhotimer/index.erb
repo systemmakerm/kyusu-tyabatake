@@ -8,7 +8,8 @@
   </div>
 
   <div data-role="content">
-    <a href="<%= url_for(:action => :timer_start) %>" data-role="button">タイマースタート(5秒)</a>
+    <a href="<%= url_for(:action => :timer_start, :query => {:type => 1}) %>" data-role="button">タイマースタート(5秒後に画面移動)</a>
+    <a href="<%= url_for(:action => :timer_start, :query => {:type => 2}) %>" data-role="button">タイマースタート(5秒後にポップアップ表示)</a>
   </div>
 
 </div>
