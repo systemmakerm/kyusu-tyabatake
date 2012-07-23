@@ -1,14 +1,21 @@
 <div data-role="page">
 
   <div data-role="header" data-position="inline">
-    <h1>JSON解析表示</h1>
+    <h1>JSON生成機能</h1>
     <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
       JSON機能トップへ
     </a>
   </div>
 
   <div data-role="content">
+    <p>
+      Hash形式の値からJSONファイルを生成しています。
+    </p>
     <ul data-role="listview">
+      <li>
+        <div class="itemLabel">生成前の値</div>
+        <div class="itemValue"><%= @value.inspect %></div>
+      </li>
       <li>
         <div class="itemLabel">ファイル内容</div>
         <div class="itemValue"><%= @json %></div>

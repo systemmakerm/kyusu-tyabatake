@@ -1,3 +1,10 @@
+<script type="text/javascript">
+  function StopRington(){
+    $.get('<%= url_for(:action => :ajax_stop_ringtone) %>');
+    return false;
+  }
+</script>
+
 <div data-role="page" data-add-back-btn="false">
 
   <div data-role="header" data-position="inline">
@@ -5,6 +12,12 @@
     <a href="<%= url_for(:action => :index) %>" class="ui-btn-left" data-icon="arrow-l" data-direction="reverse">
       戻る
     </a>
+    <div data-role="navbar">
+      <ul>
+        <li><a href="<%= url_for(:action => :play_ringtone, :query => {:file => @params["file"], :name => @params["name"]}) %>" href="#" >再生</a></li>
+        <li><a onclick="return StopRington()" href="#" >停止</a></li>
+      </ul>
+    </div>
   </div>
 
   <div data-role="content">
@@ -14,5 +27,6 @@
         <div class="itemValue"><%= @name %></div>
       </li>
     </ul>
+    
   </div>
 </div>

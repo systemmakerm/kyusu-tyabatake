@@ -47,19 +47,20 @@ class JsonTestController < Rho::RhoController
   
   # JSONファイルを生成する。
   def generate_json
-    json_path = File.join(Rho::RhoApplication.get_model_path("app", "JsonTest"), "generate.json")
+#    json_path = File.join(Rho::RhoApplication.get_model_path("app", "JsonTest"), "generate.json")
+    json_path = File.join(Rho::RhoApplication.get_blob_path("generate.json"))
     if File.exists?(json_path)
       File.unlink(json_path)
     end
     
-    value = {:project => {:title => "Ruby on SmartPhone with PaaS"}}
+    @value = {:project => {:title => "Ruby on SmartPhone with PaaS"}}
     
     File.open(json_path, "w") do |f|
       #   ::JSON.generate(value)
       # 引数で渡した値をJSON形式の文字列に変換する。
       # ==== args
       # * value :: JSON化したい値
-      f.print ::JSON.generate(value)
+      f.print ::JSON.generate(@value)
     end
     
     @json = File.new(json_path).read

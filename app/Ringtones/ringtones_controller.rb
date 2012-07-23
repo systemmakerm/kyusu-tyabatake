@@ -28,4 +28,25 @@ class RingtonesController < Rho::RhoController
     Rho::RingtoneManager::play(@params["file"])
     render :back => url_for(:action => :index)
   end
+  
+  # 着信音を再生する。
+  def ajax_start_ringtone
+    puts "nknkn"
+    #   Rho::RingtoneManager::play(file_path)
+    # 引数で指定したファイルパスの着信音を再生する。
+    # ==== args
+    # * file_path:: ファイルパス
+    Rho::RingtoneManager::play(@params["file"])
+    render :string => ""
+  end
+  
+  # 着信音の再生を停止する。
+  def ajax_stop_ringtone
+    #   Rho::RingtoneManager::stop
+    # 着信音を再生中の場合、停止する。
+    Rho::RingtoneManager::stop
+    render :string => ""
+  end
+  
+  
 end
