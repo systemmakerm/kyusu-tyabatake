@@ -8,7 +8,21 @@
   </div>
 
   <div data-role="content">
-    <%= @xml.elements["/projects/title"].get_text %>
+    <p>
+      ローカルに保存されている、XMLファイルを解析して表示しています。
+    </p>
+    <ul data-role="listview">
+      <li>
+        <div class="itemLabel">ファイル内容</div>
+        <div class="itemValue"><%= h @file %></div>
+      </li>
+      <li>
+        <div class="itemLabel">解析内容(projects/title)</div>
+        <div class="itemValue">
+          <%= @xml.elements["/projects/title"].get_text %>
+        </div>
+      </li>
+    </ul>
   </div>
 
 </div>

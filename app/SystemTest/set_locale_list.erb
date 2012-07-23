@@ -1,0 +1,20 @@
+<div data-role="page" data-theme="b">
+
+	<div data-role="header" data-position="inline">
+    <h1>表示言語の変更</h1>
+    <a href="<%= url_for(:action => :index) %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      System機能リストへ
+    </a>
+	</div>
+
+  <div data-role="content">
+    <p>
+      変更する表示言語を選択して下さい。<br />
+      本機能では、OSの表示言語を変更するものではありません。<br />
+      現在の表示言語: <%= LocalizationSimplified::get_cur_locale %>
+    </p>
+    <% @locales.each do |k, v| %>
+      <a href="<%= url_for :action => :set_locale, :query => {:name => v, :locale => k} %>" data-role="button" ><%= v %></a>
+    <% end %>
+  </div>
+</div>

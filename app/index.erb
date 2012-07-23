@@ -27,7 +27,7 @@
       <li><a href="<%= url_for :controller => :Signature, :action => :index %>">署名(サイン機能)</a></li>
       <% if System::get_property('platform') != 'APPLE' %>
         <li><a href="<%= url_for :controller => :Barcode, :action => :index %>">バーコードスキャン機能</a></li>
-        <li><a href="<%= url_for :controller => :Ringtones, :action => :index %>">着信音機能</a></li>
+        <li><a href="<%= url_for :controller => :Ringtones, :action => :index %>">着信音源再生機能</a></li>
       <% end %>
       <li><a href="<%= url_for :controller => :TimePicker, :action => :index %>">タイムピッカー機能</a></li>
       <li><a href="<%= url_for :controller => :SystemTest, :action => :index %>">System機能</a></li>

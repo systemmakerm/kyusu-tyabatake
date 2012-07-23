@@ -22,24 +22,31 @@ class SystemTestController < Rho::RhoController
     # * <tt>has_camera</tt>          :: カメラの有無
     # * <tt>screen_width</tt>        :: 画面横幅(px)
     # * <tt>screen_height</tt>       :: 画面縦幅(px)
+    # * <tt>screen_orientation</tt>  :: 現在の画面の向き 'portrait': 縦、'landscape': 横
     # * <tt>ppi_x</tt>               :: 水平方向のPPI
     # * <tt>ppi_y</tt>               :: 垂直方向のPPI
-    # * <tt>has_network</tt>         :: ネットワークの有無
+    # * <tt>has_network</tt>         :: ネットワーク状態の有無
     # * <tt>phone_number</tt>        :: 電話番号
     # * <tt>device_id</tt>           :: 端末ID
     # * <tt>phone_id</tt>            :: ハードウェアのID
-    # * <tt>full_browser</tt>        :: フルブラウザ
+    # * <tt>full_browser</tt>        :: フルブラウザ対応しているか
     # * <tt>device_name</tt>         :: 端末名
     # * <tt>os_version</tt>          :: OSのバージョン
-    # * <tt>locale</tt>              :: 設定されている言語
-    # * <tt>country</tt>             :: 国名
-    # * <tt>is_emulator</tt>         :: エミュレータか？
+    # * <tt>locale</tt>              :: 端末に設定されている言語
+    # * <tt>country</tt>             :: 端末に設定されている国名(地域)の略称
+    # * <tt>is_emulator</tt>         :: エミュレータ上で実行されているか？
     # * <tt>has_calendar</tt>        :: カレンダー機能があるか？
     # * <tt>is_motorola_device</tt>  :: Motorolaのデバイスか？
     SystemTest::PROPERTIES.each do |property|
-      @system[property] = System::get_property(property)
+      # .inspectを入れること
+      @system[property] = System::get_property(property).inspect
     end
 
+    render :back => url_for(:action => :index)
+  end
+  
+  # 画面回転機能トップ
+  def screen_rotation_index
     render :back => url_for(:action => :index)
   end
 
@@ -52,13 +59,15 @@ class SystemTestController < Rho::RhoController
     # * callback_url :: 画面が回転したときに、呼び出すコールバック先のURL
     # * params       :: コールバック先へ渡すパラメータを指定する。
     System::set_screen_rotation_notification(url_for(:action => :get_screen_rotation_callback), "")
-    render :action => :index
+    Alert.show_popup("画面を傾けてください")
+    render :action => :screen_rotation_index, :back => url_for(:action => :index)
   end
 
   # 画面の向きの捕捉を解除
   def unset_screen_rotation
     System::set_screen_rotation_notification(nil, nil)
-    render :action => :index
+    Alert.show_popup("画面の向きの捕捉を解除しました。")
+    render :action => :screen_rotation_index, :back => url_for(:action => :index)
   end
 
   # 画面の向きが変わったときに呼ばれるコールバック
@@ -100,19 +109,61 @@ class SystemTestController < Rho::RhoController
     # * <tt>true</tt>   :: スリープを有効化
     # * <tt>false</tt>  :: スリープを無効化
     System::set_sleeping($sleeping)
+    if $sleeping
+      msg = "スリープを有効にしました。"
+    else
+      msg = "スリープを無効にしました。"
+    end
+    Alert.show_popup(msg)
     render :action => :index
   end
 
+  # System.open_url機能のトップメニュー
+  def open_url_index
+    render :back => url_for(:action => :index)
+  end
+  
   # URLからリンク先を開く
   def open_url
     #   System::open_url(url)
-    # 引数で渡したURLを開く
+    # 引数で渡したURL・ファイルを開く
     # ==== args
     # * url :: 開くURLを指定
     System::open_url("http://www.kouboum.co.jp")
     render :action => :index
   end
-
+  
+  # URLの入力画面を開く
+  def input_url
+    render :back => url_for(:action => :open_url_index)
+  end
+  
+  # 画面で入力したURLのリンクを開く
+  def input_open_url
+    #   System::open_url(url)
+    # 引数で渡したURL・ファイルを開く
+    # ==== args
+    # * url :: 開くURLを指定
+    System::open_url(@params["url"])
+    redirect :action => :open_file_index
+  end
+  
+  # ローカルに保存しているファイルを開く
+  def open_file
+    url = File.join(Rho::RhoApplication.get_model_path("app", "SystemTest"), "sample.pdf")
+    #   System::open_url(url)
+    # 引数で渡したURL・ファイルを開く
+    # ==== args
+    # * url :: 開くURLを指定
+    System::open_url(url)
+    redirect :action => :open_file_index
+  end
+  
+  # 他のアプリケーション起動用の一覧を表示する。
+  def run_app_list
+    render :back => url_for(:action => :index)
+  end
+  
   # 他のアプリケーションを起動する。
   def run_app
     #   System::run_app(appname, params)
@@ -122,11 +173,34 @@ class SystemTestController < Rho::RhoController
     # * params  :: アプリケーションに渡すパラメータ
     case platform
     when "android"
-      System::run_app('market', "")
+      case @params["app_name"]
+      when "music"
+        # マーケットを起動する。
+        if System::app_installed?("com.android.music")
+          System::run_app('com.android.music', "")
+        else
+          Alert.show_popup("musicがインストールされていません。")
+        end
+      end
     when "apple"
-      System::run_app('skype://', "")
+      case @params["app_name"]
+      when "skype"
+        # Skypeを起動する。
+        if System::app_installed?("skype")
+          System::run_app('skype://', "")
+        else
+          Alert.show_popup("skypeがインストールされていません。")
+        end
+      when "calendar"
+        if System::app_installed?("x-apple-calevent")
+          # カレンダーアプリを起動
+          System::run_app('x-apple-calevent://', "")
+        else
+          Alert.show_popup("カレンダーアプリがインストールされていません。")
+        end
+      end
     end
-    render :action => :index
+    render :action => :run_app_list, :back => url_for(:action => :index)
   end
 
   # アプリケーションをインストールする。
@@ -139,6 +213,11 @@ class SystemTestController < Rho::RhoController
     System::app_install(url)
     render :action => :index
   end
+  
+  # アプリケーションがインストールされているか確認をするためのアプリ一覧
+  def installed_list
+    render :back => url_for(:action => :index)
+  end
 
   # アプリケーションがインストールされているかを判定
   def app_installed
@@ -148,21 +227,33 @@ class SystemTestController < Rho::RhoController
     # * appname :: インストールされているか判定するアプリ名
     case platform
     when "android"
-      if System::app_installed?("com.android.music")
-        msg = "musicがインストールされています。"
-      else
-        msg = "musicがインストールされていません。"
+      case @params["app_name"]
+      when "music"
+        if System::app_installed?("com.android.music")
+          msg = "musicがインストールされています。"
+        else
+          msg = "musicがインストールされていません。"
+        end
       end
     when "apple"
-      if System::app_installed?("skype")
-        msg = "skypeがインストールされています。"
-      else
-        msg = "skypeがインストールされていません。"
+      case @params["app_name"]
+      when "skype"
+        if System::app_installed?("skype")
+          msg = "skypeがインストールされています。"
+        else
+          msg = "skypeがインストールされていません。"
+        end
+      when "calendar"
+        if System::app_installed?("x-apple-calevent")
+          msg = "カレンダーがインストールされています。"
+        else
+          msg = "カレンダーがインストールされていません。"
+        end
       end
     end
     
     Alert.show_popup(msg)
-    render :action => :index
+    render :action => :installed_list
   end
 
   # アプリケーションのアンインストール
@@ -210,5 +301,22 @@ class SystemTestController < Rho::RhoController
   def remove_badge
     System::set_application_icon_badge(0)
     render :action => :index
+  end
+  
+  # 変更する言語の一覧を表示する。
+  def set_locale_list
+    @locales = {
+      "es" => "スペイン語",
+      "en" => "英語",
+      "ja" => "日本語"
+    }
+    render :back => url_for(:action => :index)
+  end
+  
+  # 端末の言語を変更する。
+  def set_locale
+    System::set_locale(@params["locale"])
+    Alert.show_popup("表示言語を変更しました。")
+    redirect :action => :set_locale_list
   end
 end

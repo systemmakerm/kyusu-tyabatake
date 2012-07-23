@@ -14,6 +14,14 @@
         <div class="itemValue"><%= @system["platform"] %></div>
       </li>
       <li>
+        <div class="itemLabel">デバイス名</div>
+        <div class="itemValue"><%= @system["device_name"] %></div>
+      </li>
+      <li>
+        <div class="itemLabel">OSのバージョン</div>
+        <div class="itemValue"><%= @system["os_version"] %></div>
+      </li>
+      <li>
         <div class="itemLabel">カメラの有無</div>
         <div class="itemValue"><%= @system["has_camera"] %></div>
       </li>
@@ -26,6 +34,10 @@
         <div class="itemValue"><%= @system["screen_height"] %></div>
       </li>
       <li>
+        <div class="itemLabel">画面向き</div>
+        <div class="itemValue"><%= @system["screen_orientation"] %></div>
+      </li>
+      <li>
         <div class="itemLabel">水平方向のPPI値</div>
         <div class="itemValue"><%= @system["ppi_x"] %></div>
       </li>
@@ -34,7 +46,7 @@
         <div class="itemValue"><%= @system["ppi_y"] %></div>
       </li>
       <li>
-        <div class="itemLabel">ネットワークの有無</div>
+        <div class="itemLabel">ネットワーク接続状態の有無</div>
         <div class="itemValue"><%= @system["has_network"] %></div>
       </li>
       <li>
@@ -54,23 +66,15 @@
         <div class="itemValue"><%= @system["full_browser"] %></div>
       </li>
       <li>
-        <div class="itemLabel">デバイス名</div>
-        <div class="itemValue"><%= @system["device_name"] %></div>
-      </li>
-      <li>
-        <div class="itemLabel">OSのバージョン</div>
-        <div class="itemValue"><%= @system["os_version"] %></div>
-      </li>
-      <li>
-        <div class="itemLabel">設定されている言語</div>
+        <div class="itemLabel">端末に設定されている言語</div>
         <div class="itemValue"><%= @system["locale"] %></div>
       </li>
       <li>
-        <div class="itemLabel">国名</div>
+        <div class="itemLabel">端末に設定されている国名(地域)の略称</div>
         <div class="itemValue"><%= @system["country"] %></div>
       </li>
       <li>
-        <div class="itemLabel">エミュレータ上であるか？</div>
+        <div class="itemLabel">エミュレータ上で実行されているか？</div>
         <div class="itemValue"><%= @system["is_emulator"] %></div>
       </li>
       <li>

@@ -8,6 +8,9 @@
   </div>
   
   <div class="ui-content" data-role="content" role="main">
+    <p>
+      Yahoo!ニュースのRSSを解析して表示しています。
+    </p>
     <ul class="ui-listview ui-listview-inset ui-corner-all ui-shadow" data-inset="true" data-theme="c" data-role="listview" data-filter="true">
       <% @xml.elements.each("/rss/channel/item") do |item| %>
         <li class="ui-li ui-li-static ui-body-c ui-corner-top">

@@ -1,0 +1,23 @@
+<div data-role="page" data-theme="b">
+
+	<div data-role="header" data-position="inline">
+    <h1>open_url機能</h1>
+    <a href="<%= url_for(:action => :index) %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      System機能リストへ
+    </a>
+	</div>
+
+  <div data-role="content">
+    <a href="<%= url_for :action => :open_url %>" data-role="button" >URLを開く</a>
+    <a href="<%= url_for :action => :open_file %>" data-role="button" >ローカルのファイルを開く</a>
+    <a href="<%= url_for :action => :open_map %>" data-role="button" >googlemap</a>
+    <h3>入力したURLを開く</h3>
+    <form action="<%= url_for(:action => :input_open_url) %>" >
+      <div data-role="fieldcontain">
+        <label for="end_date" class="fieldLabel">URL</label>
+        <input type="text" id="end_date" name="url" <%= placeholder("URL") %>  />
+      </div>
+      <input type="submit" value="開く"/>
+    </form>
+  </div>
+</div>
