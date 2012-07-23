@@ -9,23 +9,23 @@
 
   <div data-role="content">
     <a href="<%= url_for :action => :properties %>" data-role="button" >プロパティ一覧</a>
-    <a href="<%= url_for :action => :get_screen_rotation %>" data-role="button" >画面の回転を捕捉</a>
-    <a href="<%= url_for :action => :unset_screen_rotation %>" data-role="button" >画面の回転を捕捉を解除</a>
-    <a href="<%= url_for :action => :app_exit %>" data-role="button" >アプリを終了する</a>
+    <a href="<%= url_for :action => :screen_rotation_index %>" data-role="button" >画面の回転機能へ</a>
     <a href="<%= url_for :action => :sleeping %>" data-role="button" >スリープの有効化/無効化</a>
-    <a href="<%= url_for :action => :open_url %>" data-role="button" >URLを開く</a>
+    <a href="<%= url_for :action => :open_url_index %>" data-role="button" >URL・ファイルの表示機能</a>
     <a href="<%= url_for :action => :run_app %>" data-role="button" >他のアプリを起動する</a>
     <% if platform == "android" %>
       <a href="<%= url_for :action => :app_install %>" data-role="button" >アプリをインストールする</a>
       <a href="<%= url_for :action => :app_uninstall %>" data-role="button" >アプリをアンインストールする</a>
     <% end %>
-    <a href="<%= url_for :action => :app_installed %>" data-role="button" >アプリがインストール済みか判定する</a>
+    <a href="<%= url_for :action => :installed_list %>" data-role="button" >アプリがインストールされているか調べる</a>
     
     <a href="<%= url_for :action => :unzip %>" data-role="button" >ZIPファイルを展開する</a>
     <% if platform == "apple" %>
-      <a href="<%= url_for :action => :add_badge %>" data-role="button" >バッジの追加</a>
-      <a href="<%= url_for :action => :remove_badge %>" data-role="button" >バッジの削除</a>
+      <a href="<%= url_for :action => :add_badge %>" data-role="button" >アイコンバッジの追加</a>
+      <a href="<%= url_for :action => :remove_badge %>" data-role="button" >アイコンバッジの削除</a>
     <% end %>
+    <a href="<%= url_for :action => :set_locale_list %>" data-role="button" >アプリ内の表示言語の変更機能</a>
+    <a href="<%= url_for :action => :app_exit %>" data-role="button" >アプリを終了する</a>
     
   </div>
 </div>

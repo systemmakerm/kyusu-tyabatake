@@ -1,0 +1,26 @@
+<div data-role="page" data-theme="b">
+
+	<div data-role="header" data-position="inline">
+    <h1>アプリ起動一覧機能</h1>
+    <a href="<%= url_for(:action => :index) %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
+      System機能リストへ
+    </a>
+	</div>
+
+  <div data-role="content">
+    <p>
+      起動したいアプリケーションを選択してください。
+    </p>
+    
+    <%
+      case platform
+      when "apple"
+    %>
+      <a href="<%= url_for(:action => :run_app, :query => {:app_name => "skype"}) %>" data-role="button" >Skypeを起動する</a>
+      <a href="<%= url_for(:action => :run_app, :query => {:app_name => "calendar"}) %>" data-role="button" >カレンダーを起動する</a>
+    <% when "android" %>
+      <a href="<%= url_for(:action => :run_app, :query => {:app_name => "music"}) %>" data-role="button" >musicを起動する</a>
+    <% end %>
+    
+  </div>
+</div>

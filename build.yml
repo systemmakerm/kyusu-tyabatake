@@ -7,7 +7,7 @@ bbver: '4.6'
 applog: rholog.txt
 iphone:
   configuration: Release
-  sdk: iphoneos5.0
+  sdk: iphoneos5.1
   provisionprofile:
   codesignidentity:
   entitlements:

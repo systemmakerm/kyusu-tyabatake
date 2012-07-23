@@ -1,10 +1,12 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
+require 'helpers/tyabatake_helper'
 require 'rexml/document'
 
 # XML機能
 class XmlTestController < Rho::RhoController
   include BrowserHelper
+  include TyabatakeHelper
   
   # XML機能トップメニュー
   def index
@@ -20,6 +22,8 @@ class XmlTestController < Rho::RhoController
     # ==== args
     # * str :: 解析したい文字列 
     @xml = REXML::Document.new(file)
+    @file = IO.read(file_name)
+    
     render :back => url_for(:action => :index)
   end
   
