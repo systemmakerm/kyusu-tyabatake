@@ -67,7 +67,7 @@ class TimePickerController < Rho::RhoController
                                      #範囲を指定する最小値
                                      Time.now,
                                      #範囲を指定する最大値
-                                     Time.now + 31536000
+                                     Time.now + 604800
                                      )
     redirect :action => :index
   end
