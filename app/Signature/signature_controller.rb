@@ -42,13 +42,13 @@ class SignatureController < Rho::RhoController
                                   :border    => true,
                                   :bgColor   => 0x4F00ff00,
                                   #左から何ピクセル目に描画するか
-                                  :left      => 100,
+                                  :left      => @params['left'],
                                   #上から何ピクセル目に描画するか
-                                  :top       => 100,
+                                  :top       => @params['top'],
                                   #描画するサイズの横幅
-                                  :width     => 550,
+                                  :width     => @params['width'],
                                   #描画するサイズの縦幅
-                                  :height    => 600
+                                  :height    => @params['height']
                                  )
     render :back => url_for(:action => :index)
   end

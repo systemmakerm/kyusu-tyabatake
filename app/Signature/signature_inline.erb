@@ -7,15 +7,37 @@
     </a>
   </div>
 
-  <script tyoe="text/javascript">
-      Take_Signature_Inline()
-  </script>
-
   <div data-role="content">
-    <div class="ui-grid-a" style="margin-top:300px;">
+    <div style="text-align:center;">
+      <img src="signature.png" id="inline_sign" width="60%" height="50%" onload="checkSize()" />
+    </div>
+    <div class="ui-grid-a">
       <div class="ui-block-a"><input type="button" value="クリア" onClick="Clear();"></div>
       <div class="ui-block-b"><input type="button" value="キャプチャ" onClick="Capture()"></div>
     </div>
   </div>
 
 </div>
+
+<script type="text/javascript">
+
+function checkSize() {
+    if (!document.getElementById('inline_sign')) {
+        return;
+    }
+
+    <% if System::get_property('platform') == 'ANDROID'%>
+        var pixel_ratio = window.devicePixelRatio;
+    <% else %>
+        var pixel_ratio = 1;
+    <% end %>
+
+    var _left = Math.round(pageX(document.getElementById('inline_sign')) * pixel_ratio);
+    var _top = Math.round(pageY(document.getElementById('inline_sign')) * pixel_ratio);
+    var _width = Math.round(document.getElementById('inline_sign').width * pixel_ratio);
+    var _height = Math.round(document.getElementById('inline_sign').height * pixel_ratio);
+    $.get('/app/Signature/take_signature_inline', {left: _left, top: _top, width: _width, height: _height});
+}
+
+window.onresize = checkSize;
+</script>
