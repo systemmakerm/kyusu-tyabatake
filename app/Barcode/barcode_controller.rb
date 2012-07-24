@@ -9,14 +9,20 @@ class BarcodeController < Rho::RhoController
     puts Barcode.methods
     render :back => '/app'
   end
-  
+
   #バーコード読み取り機能
   def take_barcode
     #バーコードを読み取る(コールバックを指定)
     Barcode.take_barcode(url_for(:action => :barcode_callback), {})
     redirect :action => :index
   end
-  
+
+  def image_scan
+    result = Barcode.barcode_recognize(File.join(Rho::RhoApplication::get_model_path('app','Barcode'), 'QRcode.gif'))
+    Alert.show_popup(result)
+    redirect :action => :index
+  end
+
   #コールバック
   def barcode_callback
     if @params['status'] == 'ok'

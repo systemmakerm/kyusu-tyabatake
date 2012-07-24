@@ -1,14 +1,18 @@
 <div data-role="page" data-theme="b">
 
-	<div data-role="header" data-position="inline">
+  <div data-role="header" data-position="inline">
     <h1>バーコードスキャン機能</h1>
     <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
       機能リストへ
     </a>
-	</div>
+  </div>
 
   <div data-role="content">
     <a href="<%= url_for :action => :take_barcode %>" data-role="button" data-ajax="false" >バーコードスキャン</a>
+    <div style="text-align:center;">
+      <img src="<%=File.join(Rho::RhoApplication::get_model_path('app','Barcode'), 'QRcode.gif')%>" width="60%" height="40%" />
+    </div>
+    <a href="<%= url_for :action => :image_scan %>" data-role="button" data-ajax="false" >画像からスキャン</a>
   </div>
 
 </div>
