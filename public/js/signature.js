@@ -6,8 +6,11 @@ function Capture() {
     $.get('/app/Signature/capture');
     return false;
 }
-function Take_Signature_Inline() {
-    $.get('/app/Signature/take_signature_inline');
-    return false;
+
+function pageY(elem) {
+    return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
 }
 
+function pageX(elem) {
+    return elem.offsetParent ? (elem.offsetLeft + pageX(elem.offsetParent)) : elem.offsetLeft;
+}
