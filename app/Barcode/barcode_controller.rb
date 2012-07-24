@@ -34,4 +34,14 @@ class BarcodeController < Rho::RhoController
     #コールバックが終了したら画面を移動
     WebView.navigate(url_for(:action => :index))
   end
+
+  def enumerate
+    Barcode.enumerate(url_for(:action => :enumerate_callback))
+    redirect :action => :index
+  end
+
+  def enumerate_callback
+    Alert.show_popup(@params.inspect)
+    WebView.navigate(url_for(:action => :index))
+  end
 end

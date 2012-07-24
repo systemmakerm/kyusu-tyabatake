@@ -13,6 +13,7 @@
       <img src="<%=File.join(Rho::RhoApplication::get_model_path('app','Barcode'), 'QRcode.gif')%>" width="60%" height="40%" />
     </div>
     <a href="<%= url_for :action => :image_scan %>" data-role="button" data-ajax="false" >画像からスキャン</a>
+    <a href="<%= url_for :action => :enumerate %>" data-role="button" data-ajax="false" >バーコード機器の一覧</a>
   </div>
 
 </div>
