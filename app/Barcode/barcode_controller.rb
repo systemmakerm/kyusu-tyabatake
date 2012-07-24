@@ -17,7 +17,9 @@ class BarcodeController < Rho::RhoController
     redirect :action => :index
   end
 
+  #画像からバーコードの読み取り
   def image_scan
+    #画像からバーコードを読み取る(画像イメージのフルパス)
     result = Barcode.barcode_recognize(File.join(Rho::RhoApplication::get_model_path('app','Barcode'), 'QRcode.gif'))
     Alert.show_popup(result)
     redirect :action => :index
