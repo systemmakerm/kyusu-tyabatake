@@ -3,11 +3,11 @@ require 'helpers/browser_helper'
 
 class AlertController < Rho::RhoController
   include BrowserHelper
-  
+
   def index
     render :action => :index
   end
-  
+
   #ポップアップ機能
   def popup
     Alert.show_popup(
@@ -22,13 +22,13 @@ class AlertController < Rho::RhoController
       )
     render :action => :index, :back => '/app'
   end
-  
+
   #コールバック
   def popup_callback
     #画面をindexに移動
     WebView.navigate(url_for(:action => :index))
   end
-  
+
   #バイブレート機能
   def vibrate
     #端末を5秒間バイブレートさせる(ミリセカンド)
