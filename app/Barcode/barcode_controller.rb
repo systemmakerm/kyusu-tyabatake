@@ -25,7 +25,7 @@ class BarcodeController < Rho::RhoController
     redirect :action => :index
   end
 
-  #コールバック
+  #バーコード機能のコールバック
   def barcode_callback
     if @params['status'] == 'ok'
       #読み取ったバーコードをポップアップで表示
@@ -35,12 +35,16 @@ class BarcodeController < Rho::RhoController
     WebView.navigate(url_for(:action => :index))
   end
 
+  #利用可能なスキャナ端末の一覧を取得する
   def enumerate
+    #利用可能な端末の一覧を取得し、コールバックを設定する。
     Barcode.enumerate(url_for(:action => :enumerate_callback))
     redirect :action => :index
   end
 
+  #一覧取得のコールバック
   def enumerate_callback
+    #取得した全てのパラメータを表示する
     Alert.show_popup(@params.inspect)
     WebView.navigate(url_for(:action => :index))
   end
