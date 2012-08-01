@@ -19,7 +19,11 @@
          </div>
        </div>
     <% end %>
-    <a href="<%= url_for :action => :choose, :query => {:flg => "0"} %>" data-role="button">日付・時間を選択</a>
+    <p>
+      <input type="text" id="time_text" readonly/>
+      <a href="" onClick="Call_Picker()" data-role="button">日付・時間を選択</a>
+    </p>
+    <hr />
     <a href="<%= url_for :action => :choose, :query => {:flg => "1"} %>" data-role="button">日付を選択</a>
     <a href="<%= url_for :action => :choose, :query => {:flg => "2"} %>" data-role="button">時間を選択</a>
     <a href="<%= url_for :action => :choose_range, :query => {:format => "0"} %>" data-role="button">日付・時間を選択(1週間後まで)</a>
@@ -35,9 +39,16 @@
     return false
   }
 
+  function Call_Picker(){
+      $.get('<%= url_for(:action => :choose) %>', {flg: 0})
+    return false
+  }
+
+  function Time_Picker_Set(time){
+      document.getElementById("time_text").value = time
+  }
 
   function SetTime(time){
-    //document.getElementById("time_field").value=time;
     $('span.time_field').html(time);
   }
 </script>
