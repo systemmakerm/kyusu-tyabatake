@@ -40,6 +40,10 @@ class TimePickerController < Rho::RhoController
       case flg
       when "0" then
         format = '%F %T'
+        #コントローラーから、フィールドへ値をセットするjavascriptの呼び出し
+        WebView.execute_js('Time_Picker_Set("' + time.strftime(format) + '");')
+        #画面が更新されないように、ここで処理を終了させる
+        return
       when "1"
         format = '%F'
       when "2"
