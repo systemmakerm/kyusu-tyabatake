@@ -31,7 +31,6 @@ class RingtonesController < Rho::RhoController
   
   # 着信音を再生する。
   def ajax_start_ringtone
-    puts "nknkn"
     #   Rho::RingtoneManager::play(file_path)
     # 引数で指定したファイルパスの着信音を再生する。
     # ==== args
